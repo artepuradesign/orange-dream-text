@@ -12,16 +12,13 @@ const PublicPlanos = () => {
       showGradients={false}
       className="flex flex-col"
     >
-      {/* Sticky Header with transparency */}
-      <div className="sticky top-0 z-20 backdrop-blur-md bg-background/70 border-b border-border/40">
-        <MenuSuperior />
-      </div>
+      <MenuSuperior />
 
-      {/* Content */}
-      <div className="relative z-10 flex-1">
+      <main className="w-full overflow-x-hidden">
         <PublicPlansSection />
-        <NewFooter />
-      </div>
+      </main>
+
+      <NewFooter />
     </PageLayout>
   );
 };

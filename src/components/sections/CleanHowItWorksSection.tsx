@@ -35,7 +35,7 @@ const steps = [
 
 const CleanHowItWorksSection: React.FC = () => {
   const navigate = useNavigate();
-
+  const { config: liquidGlassConfig } = useLiquidGlass();
   return (
     <section className="py-10 sm:py-16 lg:py-24 relative overflow-hidden bg-card border-y border-border/40">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />

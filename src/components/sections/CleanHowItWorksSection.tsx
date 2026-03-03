@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { UserPlus, ListChecks, CreditCard, Search, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import LiquidGlassButton from '@/components/ui/LiquidGlassButton';
 
 const steps = [
   {
@@ -33,7 +35,7 @@ const steps = [
 
 const CleanHowItWorksSection: React.FC = () => {
   const navigate = useNavigate();
-
+  const { config: liquidGlassConfig } = useLiquidGlass();
   return (
     <section className="py-10 sm:py-16 lg:py-24 relative overflow-hidden bg-card border-y border-border/40">
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />
@@ -91,14 +93,24 @@ const CleanHowItWorksSection: React.FC = () => {
           transition={{ duration: 0.4, delay: 0.5 }}
           className="text-center mt-12"
         >
-          <Button
-            size="lg"
-            className="font-semibold px-8 shadow-lg hover:shadow-xl transition-shadow"
-            onClick={() => navigate('/registration')}
-          >
-            Comece em 1 minuto
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          {liquidGlassConfig.enabled ? (
+            <LiquidGlassButton
+              variant="primary"
+              className="font-semibold px-8 shadow-lg hover:shadow-xl transition-shadow"
+              onClick={() => navigate('/registration')}
+            >
+              Comece em 1 minuto <ArrowRight className="ml-2 h-4 w-4 inline" />
+            </LiquidGlassButton>
+          ) : (
+            <Button
+              size="lg"
+              className="font-semibold px-8 shadow-lg hover:shadow-xl transition-shadow"
+              onClick={() => navigate('/registration')}
+            >
+              Comece em 1 minuto
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          )}
         </motion.div>
       </div>
     </section>

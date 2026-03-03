@@ -9,6 +9,8 @@ import Autoplay from "embla-carousel-autoplay";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTestimonials } from '@/hooks/useTestimonials';
 import TestimonialForm from './testimonials/TestimonialForm';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import LiquidGlassButton from '@/components/ui/LiquidGlassButton';
 interface TestimonialType {
   id: number;
   name: string;
@@ -72,6 +74,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: TestimonialType }) => {
 const Testimonials = ({ maxVisible }: { maxVisible?: number }) => {
   const { testimonials, loading, error } = useTestimonials();
   const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+  const { config: liquidGlassConfig } = useLiquidGlass();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
@@ -137,14 +140,24 @@ const Testimonials = ({ maxVisible }: { maxVisible?: number }) => {
               Profissionais que confiam em nossa plataforma
             </p>
           </div>
-          <Button 
-            onClick={() => setShowTestimonialForm(true)} 
-            variant="outline"
-            size="sm"
-            className="border-brand-purple/30 text-brand-purple hover:bg-brand-purple hover:text-white transition-all duration-300 text-xs px-4"
-          >
-            Compartilhe sua experiência
-          </Button>
+          {liquidGlassConfig.enabled ? (
+            <LiquidGlassButton
+              variant="outline"
+              className="text-xs px-4"
+              onClick={() => setShowTestimonialForm(true)}
+            >
+              Compartilhe sua experiência
+            </LiquidGlassButton>
+          ) : (
+            <Button 
+              onClick={() => setShowTestimonialForm(true)} 
+              variant="outline"
+              size="sm"
+              className="border-brand-purple/30 text-brand-purple hover:bg-brand-purple hover:text-white transition-all duration-300 text-xs px-4"
+            >
+              Compartilhe sua experiência
+            </Button>
+          )}
         </motion.div>
 
         {/* Carousel compacto */}

@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Shield, User, Clock, Calendar, CreditCard } from 'lucide-react';
@@ -7,6 +7,9 @@ import { useUserSubscription } from '@/hooks/useUserSubscription';
 import { formatDistanceToNow, addDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { getDiscount } from '@/utils/planUtils';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import { useTheme } from '@/components/ThemeProvider';
+import { cn } from '@/lib/utils';
 
 interface AccountInfoProps {
   userData: {

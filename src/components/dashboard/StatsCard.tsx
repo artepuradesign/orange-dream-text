@@ -29,7 +29,28 @@ const StatsCard: React.FC<StatsCardProps> = ({
 }) => {
   const { user } = useAuth();
   const { config: liquidGlassConfig } = useLiquidGlass();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   const { totalAvailableBalance } = useUserBalance();
+
+  // Build inline glass style matching PanelsGrid
+  const glassStyle = useMemo<React.CSSProperties>(() => {
+    if (!liquidGlassConfig.enabled) return {};
+    const filter = `blur(${liquidGlassConfig.strength + liquidGlassConfig.extraBlur}px) saturate(${liquidGlassConfig.tintSaturation}%) contrast(${liquidGlassConfig.contrast}%) brightness(${liquidGlassConfig.brightness}%) invert(${liquidGlassConfig.invert}%) hue-rotate(${liquidGlassConfig.tintHue}deg)`;
+    const bgAlpha = liquidGlassConfig.backgroundAlpha / 100;
+    const specHighAlpha = liquidGlassConfig.edgeSpecularity / 200;
+    const specLowAlpha = liquidGlassConfig.edgeSpecularity / 300;
+    const borderAlpha = liquidGlassConfig.backgroundAlpha / 200;
+    return {
+      borderRadius: `${liquidGlassConfig.cornerRadius}px`,
+      backdropFilter: filter,
+      WebkitBackdropFilter: filter,
+      background: `rgba(255,255,255,${bgAlpha})`,
+      boxShadow: `0 0 ${liquidGlassConfig.softness}px rgba(255,255,255,${specHighAlpha}), inset 0 1px 0 rgba(255,255,255,${specLowAlpha})`,
+      opacity: liquidGlassConfig.opacity / 100,
+      border: `1px solid rgba(255,255,255,${borderAlpha})`,
+    };
+  }, [liquidGlassConfig, isDark]);
   
   const {
     discountPercentage, 

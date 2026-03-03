@@ -27,6 +27,7 @@ const StatsCard: React.FC<StatsCardProps> = ({
   userBalance 
 }) => {
   const { user } = useAuth();
+  const { config: liquidGlassConfig } = useLiquidGlass();
   const { totalAvailableBalance } = useUserBalance();
   
   const {

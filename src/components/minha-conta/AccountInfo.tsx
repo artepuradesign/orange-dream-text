@@ -164,7 +164,10 @@ const AccountInfo: React.FC<AccountInfoProps> = ({ userData, onPremiumUnlock, on
   const planData = getPlanInfo();
 
   return (
-    <Card>
+    <Card 
+      className={cn(!liquidGlassConfig.enabled && '')}
+      style={liquidGlassConfig.enabled ? glassStyle : undefined}
+    >
       <CardHeader className="p-4 sm:p-6">
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-brand-purple" />

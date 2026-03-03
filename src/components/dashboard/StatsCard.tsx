@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Zap, Wallet, Monitor, Layout } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApiPanels } from '@/hooks/useApiPanels';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import { cn } from '@/lib/utils';
 import { useApiModules } from '@/hooks/useApiModules';
 import { useUserSubscription } from '@/hooks/useUserSubscription';
 import { useUserBalance } from '@/hooks/useUserBalance';
@@ -25,6 +27,7 @@ const StatsCard: React.FC<StatsCardProps> = ({
   userBalance 
 }) => {
   const { user } = useAuth();
+  const { config: liquidGlassConfig } = useLiquidGlass();
   const { totalAvailableBalance } = useUserBalance();
   
   const {
@@ -67,7 +70,10 @@ const StatsCard: React.FC<StatsCardProps> = ({
   };
 
   return (
-    <Card className="bg-white/75 dark:bg-gray-800/75 border-gray-200/75 dark:border-gray-700/75 backdrop-blur-sm">
+    <Card className={cn(
+      "bg-white/75 dark:bg-gray-800/75 border-gray-200/75 dark:border-gray-700/75 backdrop-blur-sm",
+      liquidGlassConfig.enabled && "liquid-glass-container border-white/20 bg-transparent dark:bg-transparent"
+    )}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <TrendingUp className="h-5 w-5" />

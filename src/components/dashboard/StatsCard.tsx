@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Zap, Wallet, Monitor, Layout } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApiPanels } from '@/hooks/useApiPanels';
 import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import { useTheme } from '@/components/ThemeProvider';
 import { cn } from '@/lib/utils';
 import { useApiModules } from '@/hooks/useApiModules';
 import { useUserSubscription } from '@/hooks/useUserSubscription';

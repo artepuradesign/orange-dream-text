@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { UserPlus, ListChecks, CreditCard, Search, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import LiquidGlassButton from '@/components/ui/LiquidGlassButton';
 
 const steps = [
   {

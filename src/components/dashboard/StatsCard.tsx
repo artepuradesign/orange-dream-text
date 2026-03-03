@@ -94,9 +94,10 @@ const StatsCard: React.FC<StatsCardProps> = ({
   return (
     <Card 
       className={cn(
-        liquidGlassConfig.enabled ? '' : 'bg-white/75 dark:bg-gray-800/75 border-gray-200/75 dark:border-gray-700/75 backdrop-blur-sm'
+        !liquidGlassConfig.enabled && 'bg-white/75 dark:bg-gray-800/75 border-gray-200/75 dark:border-gray-700/75 backdrop-blur-sm',
+        liquidGlassConfig.enabled && isDark && "liquid-glass-container border-white/20 bg-transparent"
       )}
-      style={liquidGlassConfig.enabled ? glassStyle : undefined}
+      style={liquidGlassConfig.enabled && !isDark ? glassStyle : undefined}
     >
       <CardHeader>
         <CardTitle className="flex items-center gap-2">

@@ -165,8 +165,10 @@ Erro: ${jsonError.message}`);
 
   return (
     <Card 
-      className={cn(!liquidGlassConfig.enabled && '')}
-      style={liquidGlassConfig.enabled ? glassStyle : undefined}
+      className={cn(
+        liquidGlassConfig.enabled && isDark && "liquid-glass-container border-white/20 bg-transparent"
+      )}
+      style={liquidGlassConfig.enabled && !isDark ? glassStyle : undefined}
     >
       <CardHeader className="p-4 sm:p-6">
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">

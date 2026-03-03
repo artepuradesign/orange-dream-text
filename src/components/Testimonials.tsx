@@ -9,6 +9,8 @@ import Autoplay from "embla-carousel-autoplay";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTestimonials } from '@/hooks/useTestimonials';
 import TestimonialForm from './testimonials/TestimonialForm';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import LiquidGlassButton from '@/components/ui/LiquidGlassButton';
 interface TestimonialType {
   id: number;
   name: string;

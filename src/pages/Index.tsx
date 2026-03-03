@@ -39,7 +39,7 @@ const Index = () => {
         <RecentModulesCarousel />
       </main>
 
-      <NewFooter />
+      <ProfessionalFooter />
       <SocialMediaButtons />
     </PageLayout>
   );

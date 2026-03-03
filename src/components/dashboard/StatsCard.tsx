@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { TrendingUp, Users, Zap, Wallet, Monitor, Layout } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApiPanels } from '@/hooks/useApiPanels';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import { cn } from '@/lib/utils';
 import { useApiModules } from '@/hooks/useApiModules';
 import { useUserSubscription } from '@/hooks/useUserSubscription';
 import { useUserBalance } from '@/hooks/useUserBalance';

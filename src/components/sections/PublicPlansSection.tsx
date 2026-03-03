@@ -351,23 +351,44 @@ const PublicPlansSection = () => {
 
               {/* Botões */}
               <div className="space-y-2 mt-auto">
-                <Button
-                  size="sm"
-                  className="w-full bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white text-xs h-9 rounded-xl font-semibold shadow-md shadow-purple-500/20 hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
-                  onClick={() => handlePlanSelection(plan)}
-                >
-                  Adquirir Plano
-                </Button>
-
-                {user && hasSufficientBalance && (
+                {liquidGlassConfig.enabled ? (
+                  <LiquidGlassButton
+                    variant="primary"
+                    className="w-full text-xs h-9 font-semibold"
+                    onClick={() => handlePlanSelection(plan)}
+                  >
+                    Adquirir Plano
+                  </LiquidGlassButton>
+                ) : (
                   <Button
                     size="sm"
-                    className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white text-xs h-9 rounded-xl font-semibold shadow-md shadow-emerald-500/20 transition-all duration-300"
-                    onClick={() => handleUpgradePlan(plan)}
+                    className="w-full bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white text-xs h-9 rounded-xl font-semibold shadow-md shadow-purple-500/20 hover:shadow-lg hover:shadow-purple-500/30 transition-all duration-300"
+                    onClick={() => handlePlanSelection(plan)}
                   >
-                    <CreditCard className="h-3 w-3 mr-1.5" />
-                    Upgrade com Saldo
+                    Adquirir Plano
                   </Button>
+                )}
+
+                {user && hasSufficientBalance && (
+                  liquidGlassConfig.enabled ? (
+                    <LiquidGlassButton
+                      variant="outline"
+                      className="w-full text-xs h-9 font-semibold"
+                      onClick={() => handleUpgradePlan(plan)}
+                    >
+                      <CreditCard className="h-3 w-3 mr-1.5 inline" />
+                      Upgrade com Saldo
+                    </LiquidGlassButton>
+                  ) : (
+                    <Button
+                      size="sm"
+                      className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white text-xs h-9 rounded-xl font-semibold shadow-md shadow-emerald-500/20 transition-all duration-300"
+                      onClick={() => handleUpgradePlan(plan)}
+                    >
+                      <CreditCard className="h-3 w-3 mr-1.5" />
+                      Upgrade com Saldo
+                    </Button>
+                  )
                 )}
               </div>
 

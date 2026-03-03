@@ -51,9 +51,9 @@ const DashboardTitleCard = ({
   return (
     <Card 
       className={cn(
-        liquidGlassConfig.enabled && isDark && "liquid-glass-container border-white/20 bg-transparent"
+        liquidGlassConfig.enabled && ''
       )}
-      style={liquidGlassConfig.enabled && !isDark ? glassStyle : undefined}
+      style={liquidGlassConfig.enabled ? glassStyle : undefined}
     >
       <CardHeader className="p-3 sm:p-6">
         <div className="flex items-center justify-between gap-2">

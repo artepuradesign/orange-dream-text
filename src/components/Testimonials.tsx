@@ -140,14 +140,24 @@ const Testimonials = ({ maxVisible }: { maxVisible?: number }) => {
               Profissionais que confiam em nossa plataforma
             </p>
           </div>
-          <Button 
-            onClick={() => setShowTestimonialForm(true)} 
-            variant="outline"
-            size="sm"
-            className="border-brand-purple/30 text-brand-purple hover:bg-brand-purple hover:text-white transition-all duration-300 text-xs px-4"
-          >
-            Compartilhe sua experiência
-          </Button>
+          {liquidGlassConfig.enabled ? (
+            <LiquidGlassButton
+              variant="outline"
+              className="text-xs px-4"
+              onClick={() => setShowTestimonialForm(true)}
+            >
+              Compartilhe sua experiência
+            </LiquidGlassButton>
+          ) : (
+            <Button 
+              onClick={() => setShowTestimonialForm(true)} 
+              variant="outline"
+              size="sm"
+              className="border-brand-purple/30 text-brand-purple hover:bg-brand-purple hover:text-white transition-all duration-300 text-xs px-4"
+            >
+              Compartilhe sua experiência
+            </Button>
+          )}
         </motion.div>
 
         {/* Carousel compacto */}

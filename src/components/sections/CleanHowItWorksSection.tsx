@@ -93,14 +93,24 @@ const CleanHowItWorksSection: React.FC = () => {
           transition={{ duration: 0.4, delay: 0.5 }}
           className="text-center mt-12"
         >
-          <Button
-            size="lg"
-            className="font-semibold px-8 shadow-lg hover:shadow-xl transition-shadow"
-            onClick={() => navigate('/registration')}
-          >
-            Comece em 1 minuto
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
+          {liquidGlassConfig.enabled ? (
+            <LiquidGlassButton
+              variant="primary"
+              className="font-semibold px-8 shadow-lg hover:shadow-xl transition-shadow"
+              onClick={() => navigate('/registration')}
+            >
+              Comece em 1 minuto <ArrowRight className="ml-2 h-4 w-4 inline" />
+            </LiquidGlassButton>
+          ) : (
+            <Button
+              size="lg"
+              className="font-semibold px-8 shadow-lg hover:shadow-xl transition-shadow"
+              onClick={() => navigate('/registration')}
+            >
+              Comece em 1 minuto
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          )}
         </motion.div>
       </div>
     </section>

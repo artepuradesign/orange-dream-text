@@ -12,6 +12,8 @@ import Autoplay from "embla-carousel-autoplay";
 import { useAuth } from '@/contexts/AuthContext';
 import { useWalletBalance } from '@/hooks/useWalletBalance';
 import { planPurchaseService } from '@/services/planPurchaseService';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import LiquidGlassButton from '@/components/ui/LiquidGlassButton';
 
 const CarouselWithControls = ({ categoryPlans, categoryName, PlanCard }: any) => {
   const [isPlaying, setIsPlaying] = useState(true);

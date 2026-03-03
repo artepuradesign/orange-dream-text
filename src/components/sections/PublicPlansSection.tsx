@@ -115,6 +115,7 @@ const PublicPlansSection = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const { balance } = useWalletBalance();
+  const { config: liquidGlassConfig } = useLiquidGlass();
 
   const handlePlanSelection = (plan: any) => {
     // Redirecionar diretamente para a página de pagamento público

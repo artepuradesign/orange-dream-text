@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -7,9 +7,33 @@ import { Key, Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
 import { cookieUtils } from '@/utils/cookieUtils';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import { useTheme } from '@/components/ThemeProvider';
+import { cn } from '@/lib/utils';
 
 const PasswordChangeForm = () => {
   const { user } = useAuth();
+  const { config: liquidGlassConfig } = useLiquidGlass();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  const glassStyle = useMemo<React.CSSProperties>(() => {
+    if (!liquidGlassConfig.enabled) return {};
+    const filter = `blur(${liquidGlassConfig.strength + liquidGlassConfig.extraBlur}px) saturate(${liquidGlassConfig.tintSaturation}%) contrast(${liquidGlassConfig.contrast}%) brightness(${liquidGlassConfig.brightness}%) invert(${liquidGlassConfig.invert}%) hue-rotate(${liquidGlassConfig.tintHue}deg)`;
+    const bgAlpha = liquidGlassConfig.backgroundAlpha / 100;
+    const specHighAlpha = liquidGlassConfig.edgeSpecularity / 200;
+    const specLowAlpha = liquidGlassConfig.edgeSpecularity / 300;
+    const borderAlpha = liquidGlassConfig.backgroundAlpha / 200;
+    return {
+      borderRadius: `${liquidGlassConfig.cornerRadius}px`,
+      backdropFilter: filter,
+      WebkitBackdropFilter: filter,
+      background: `rgba(255,255,255,${bgAlpha})`,
+      boxShadow: `0 0 ${liquidGlassConfig.softness}px rgba(255,255,255,${specHighAlpha}), inset 0 1px 0 rgba(255,255,255,${specLowAlpha})`,
+      opacity: liquidGlassConfig.opacity / 100,
+      border: `1px solid rgba(255,255,255,${borderAlpha})`,
+    };
+  }, [liquidGlassConfig, isDark]);
   const [showPasswords, setShowPasswords] = useState({
     current: false,
     new: false
@@ -140,7 +164,10 @@ Erro: ${jsonError.message}`);
   };
 
   return (
-    <Card>
+    <Card 
+      className={cn(!liquidGlassConfig.enabled && '')}
+      style={liquidGlassConfig.enabled ? glassStyle : undefined}
+    >
       <CardHeader className="p-4 sm:p-6">
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <Key className="h-4 w-4 sm:h-5 sm:w-5 text-brand-purple" />

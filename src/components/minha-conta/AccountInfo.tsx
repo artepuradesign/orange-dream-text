@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Shield, User, Clock, Calendar, CreditCard } from 'lucide-react';
@@ -7,6 +7,9 @@ import { useUserSubscription } from '@/hooks/useUserSubscription';
 import { formatDistanceToNow, addDays } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { getDiscount } from '@/utils/planUtils';
+import { useLiquidGlass } from '@/contexts/LiquidGlassContext';
+import { useTheme } from '@/components/ThemeProvider';
+import { cn } from '@/lib/utils';
 
 interface AccountInfoProps {
   userData: {
@@ -27,6 +30,27 @@ interface AccountInfoProps {
 
 const AccountInfo: React.FC<AccountInfoProps> = ({ userData, onPremiumUnlock, onPremiumLock, isPremiumUnlocked }) => {
   const { hasActiveSubscription, subscription, planInfo, discountPercentage, isLoading } = useUserSubscription();
+  const { config: liquidGlassConfig } = useLiquidGlass();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  const glassStyle = useMemo<React.CSSProperties>(() => {
+    if (!liquidGlassConfig.enabled) return {};
+    const filter = `blur(${liquidGlassConfig.strength + liquidGlassConfig.extraBlur}px) saturate(${liquidGlassConfig.tintSaturation}%) contrast(${liquidGlassConfig.contrast}%) brightness(${liquidGlassConfig.brightness}%) invert(${liquidGlassConfig.invert}%) hue-rotate(${liquidGlassConfig.tintHue}deg)`;
+    const bgAlpha = liquidGlassConfig.backgroundAlpha / 100;
+    const specHighAlpha = liquidGlassConfig.edgeSpecularity / 200;
+    const specLowAlpha = liquidGlassConfig.edgeSpecularity / 300;
+    const borderAlpha = liquidGlassConfig.backgroundAlpha / 200;
+    return {
+      borderRadius: `${liquidGlassConfig.cornerRadius}px`,
+      backdropFilter: filter,
+      WebkitBackdropFilter: filter,
+      background: `rgba(255,255,255,${bgAlpha})`,
+      boxShadow: `0 0 ${liquidGlassConfig.softness}px rgba(255,255,255,${specHighAlpha}), inset 0 1px 0 rgba(255,255,255,${specLowAlpha})`,
+      opacity: liquidGlassConfig.opacity / 100,
+      border: `1px solid rgba(255,255,255,${borderAlpha})`,
+    };
+  }, [liquidGlassConfig, isDark]);
   
   // Secret sequence: Shield → User → Clock (unlock), reverse Clock → User → Shield (lock)
   const [secretStep, setSecretStep] = useState(0);
@@ -140,7 +164,10 @@ const AccountInfo: React.FC<AccountInfoProps> = ({ userData, onPremiumUnlock, on
   const planData = getPlanInfo();
 
   return (
-    <Card>
+    <Card 
+      className={cn(!liquidGlassConfig.enabled && '')}
+      style={liquidGlassConfig.enabled ? glassStyle : undefined}
+    >
       <CardHeader className="p-4 sm:p-6">
         <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
           <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-brand-purple" />

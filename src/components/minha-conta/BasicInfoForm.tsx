@@ -85,6 +85,7 @@ const BasicInfoForm: React.FC<BasicInfoFormProps> = ({ userData, onInputChange }
 
   return (
     <Card 
+      className={cn(liquidGlassConfig.enabled && "bg-transparent border-transparent")}
       style={liquidGlassConfig.enabled ? glassStyle : undefined}
     >
       <CardHeader className="p-4 sm:p-6">

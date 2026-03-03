@@ -51,7 +51,7 @@ const DashboardTitleCard = ({
   return (
     <Card 
       className={cn(
-        liquidGlassConfig.enabled && ''
+        liquidGlassConfig.enabled && "bg-transparent border-transparent"
       )}
       style={liquidGlassConfig.enabled ? glassStyle : undefined}
     >

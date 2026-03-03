@@ -74,6 +74,7 @@ const TestimonialCard = ({ testimonial }: { testimonial: TestimonialType }) => {
 const Testimonials = ({ maxVisible }: { maxVisible?: number }) => {
   const { testimonials, loading, error } = useTestimonials();
   const [showTestimonialForm, setShowTestimonialForm] = useState(false);
+  const { config: liquidGlassConfig } = useLiquidGlass();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
